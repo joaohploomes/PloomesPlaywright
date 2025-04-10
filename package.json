@@ -1,0 +1,25 @@
+{
+	"name": "ploomesplaywright",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "playwright test",
+		"lint:check": "biome check .",
+		"lint:format": "biome format --write ."
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"dotenv": "^16.4.7",
+		"tsc": "^2.0.4",
+		"tsx": "^4.19.3",
+		"typescript": "^5.8.2"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@playwright/test": "^1.51.1",
+		"@types/node": "^22.13.17"
+	}
+}

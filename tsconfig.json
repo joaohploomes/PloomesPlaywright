@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"module": "Node18",
+		"moduleResolution": "nodenext",
+		"noImplicitAny": true,
+		"paths": {
+			"@lib": ["./src/lib/index"],
+			"@controllers/*": ["./src/controllers/*"],
+			"@schemas/*": ["./src/schemas/*"],
+			"@services/*": ["./src/services/*"]
+		}
+	},
+	"include": ["src/**/*"]
+}
