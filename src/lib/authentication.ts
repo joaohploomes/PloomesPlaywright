@@ -1,0 +1,11 @@
+class Request{
+    
+
+    get(){
+
+    }
+
+    post(){
+        
+    }
+}

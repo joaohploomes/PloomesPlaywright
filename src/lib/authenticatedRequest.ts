@@ -23,9 +23,9 @@ export async function authenticatedRequest(...args: any[]): Promise<APIRequestCo
 	}
 
 	const userKey = await getUserKey({
-		email: "dev.m1@ploomes.com",
+		email: process.env.EMAIL_PLOOMES,
 		isPartners: false,
-		password: "12345678",
+		password: process.env.PASSWORD_PLOOMES,
 	});
 
 	const baseOptions: OptionsParameters = {

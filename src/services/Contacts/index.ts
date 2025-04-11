@@ -3,17 +3,15 @@ import type { APIRequestContext } from "@playwright/test";
 import type IContact from "@schemas/IContact";
 
 class ContactService {
-	endpoint: "Contact";
+	endpoint = "Contacts";
 	request: APIRequestContext;
 
-	constructor() {
-		authenticatedRequest().then((req) => {
-			this.request = req;
-		});
+	async createRequest(){
+		this.request = await authenticatedRequest();
 	}
 
 	async findAllContacts() {
-		if (this.request) return await this.request.get(this.endpoint);
+		if(this.request) return await this.request.get(this.endpoint);
 	}
 
 	findContactByEmail(email: string) {}

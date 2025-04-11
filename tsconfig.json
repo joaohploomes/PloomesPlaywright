@@ -8,7 +8,8 @@
 			"@controllers/*": ["./src/controllers/*"],
 			"@schemas/*": ["./src/schemas/*"],
 			"@services/*": ["./src/services/*"]
-		}
+		},
+		"typeRoots": ["./env.d.ts", "./node_modules/@types"]
 	},
-	"include": ["src/**/*"]
+	"include": ["src/**/*"],
 }
