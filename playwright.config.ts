@@ -1,4 +1,7 @@
-import { defineConfig, devices } from "@playwright/test";
+import { defineConfig } from "@playwright/test";
+import { config } from "dotenv";
+
+config();
 
 export default defineConfig({
 	testDir: "./src/tests",

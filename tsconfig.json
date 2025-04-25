@@ -11,5 +11,5 @@
 			"@types": ["./src/types/index"]
 		}
 	},
-	"include": ["src/**/*"]
+	"include": ["src/**/*"],
 }
