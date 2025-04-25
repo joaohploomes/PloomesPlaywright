@@ -7,7 +7,8 @@
 			"@lib": ["./src/lib/index"],
 			"@controllers/*": ["./src/controllers/*"],
 			"@schemas/*": ["./src/schemas/*"],
-			"@services/*": ["./src/services/*"]
+			"@services/*": ["./src/services/*"],
+			"@types": ["./src/types/index"]
 		}
 	},
 	"include": ["src/**/*"]

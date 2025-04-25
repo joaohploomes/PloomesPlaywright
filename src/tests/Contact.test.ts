@@ -6,8 +6,6 @@ test.describe("Contact tests", () => {
 		const contactController = new ContactController();
 		const allContacts = await contactController.findAllContacts();
 
-		console.log({ allContacts });
-
-		expect([]).toContain([]);
+		expect(allContacts).not.toEqual([]);
 	});
 });

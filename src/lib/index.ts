@@ -1,4 +1,3 @@
-import { authenticatedRequest } from "./authenticatedRequest";
-import { getUserKey } from "./getUserKey";
+import getJsonFile from "./getJsonFile";
 
-export { getUserKey, authenticatedRequest };
+export { getJsonFile };

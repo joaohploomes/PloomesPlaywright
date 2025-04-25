@@ -1,19 +1,18 @@
-import { authenticatedRequest } from "@lib";
 import type { APIRequestContext } from "@playwright/test";
 import type IContact from "@schemas/IContact";
+import Authentication from "../../auth/authentication";
+import users from "../../constants/users";
 
 class ContactService {
-	endpoint: "Contact";
+	endpoint = "Contacts";
 	request: APIRequestContext;
-
-	constructor() {
-		authenticatedRequest().then((req) => {
-			this.request = req;
-		});
-	}
+	auth = new Authentication(users.usuario1.email, users.usuario1.password);
 
 	async findAllContacts() {
-		if (this.request) return await this.request.get(this.endpoint);
+		const context = await this.auth.createContext();
+		const response = await context.get(this.endpoint);
+		const json = await response.json();
+		return json.value;
 	}
 
 	findContactByEmail(email: string) {}
