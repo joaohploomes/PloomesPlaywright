@@ -1,12 +1,11 @@
 import type { APIRequestContext } from "@playwright/test";
-import type IContact from "@schemas/IContact";
+import type { IContact } from "@schemas";
 import Authentication from "../../auth/authentication";
-import users from "../../constants/users";
 
 class ContactService {
 	endpoint = "Contacts";
 	request: APIRequestContext;
-	auth = new Authentication(users.usuario1.email, users.usuario1.password);
+	auth = new Authentication();
 
 	async findAllContacts() {
 		const context = await this.auth.createContext();

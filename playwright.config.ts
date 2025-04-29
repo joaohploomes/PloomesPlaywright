@@ -1,5 +1,6 @@
 import { defineConfig } from "@playwright/test";
 import { config } from "dotenv";
+import "./extensions";
 
 config();
 

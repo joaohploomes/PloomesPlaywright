@@ -6,10 +6,11 @@
 		"paths": {
 			"@lib": ["./src/lib/index"],
 			"@controllers/*": ["./src/controllers/*"],
-			"@schemas/*": ["./src/schemas/*"],
+			"@schemas": ["./src/schemas"],
 			"@services/*": ["./src/services/*"],
-			"@types": ["./src/types/index"]
+			"@types": ["./src/types/index"],
+			"@constants": ["./src/constants/index"]
 		}
 	},
-	"include": ["src/**/*"],
+	"include": ["src/**/*", "extensions/*"],
 }

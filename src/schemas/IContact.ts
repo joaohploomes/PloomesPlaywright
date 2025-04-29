@@ -1,7 +1,17 @@
+import z from "zod";
 
-interface IContact {
-	id: string;
-	name: string;
-	email: string;
-}
-export default IContact;
+const ContactSchema = z.object({
+	id: z.string(),
+	name: z.string(),
+	email: z.string().email()
+})
+
+type IContact = z.infer<typeof ContactSchema>;
+
+export {
+	ContactSchema
+};
+
+export type {
+	IContact
+};

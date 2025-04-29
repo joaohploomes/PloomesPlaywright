@@ -1,0 +1,24 @@
+import { ZodError, type ZodSchema } from "zod";
+
+function toMatchSchema<T>(received: T, schema: ZodSchema<T>){
+    try{
+        schema.parse(received);
+        return {
+            pass: true,
+            message: () => "Esquema passou"
+        }
+    }catch(err){
+        if(err instanceof ZodError){
+            return {
+                pass: false,
+                message: () => "Esquema quebrou"
+            }
+        }
+        return {
+            pass: false,
+            message: () => "Esquema quebrou"
+        }
+    }
+}
+
+export default toMatchSchema;
