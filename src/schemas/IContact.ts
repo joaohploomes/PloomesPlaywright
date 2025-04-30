@@ -3,8 +3,8 @@ import z from "zod";
 const ContactSchema = z.object({
 	id: z.string(),
 	name: z.string(),
-	email: z.string().email()
-})
+	email: z.string().email().optional(),
+});
 
 type IContact = z.infer<typeof ContactSchema>;
 
