@@ -3,8 +3,8 @@ import type { IContact } from '@schemas';
 
 function generateMockedContact(): IContact {
   return {
-    name: faker.person.firstName(),
-    email: faker.internet.email(),
+    Name: faker.person.firstName(),
+    Email: faker.internet.email(),
   };
 };
 

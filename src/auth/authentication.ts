@@ -1,4 +1,4 @@
-import type { ILogin } from "@types";
+import type { ILogin, IUser } from "@types";
 import users from "../constants/users";
 import { request } from "@playwright/test";
 import { getJsonFile } from "@lib";
@@ -10,26 +10,28 @@ const partnersKeyList = getJsonFile("partnersKeys.json");
 
 class Authentication{
 
-    private userKey: string;
-    private baseUrl: string;
-
-    constructor(email?: string, password?: string, isPartners?: boolean){
-
-        this.baseUrl = isPartners ? process.env.PARTNERS_URL : process.env.BASE_URL;
-        this.login({
-            email: email || users.default.email,
-            password: password || users.default.password,
-            isPartners
-        })
+    private baseUrl = process.env.BASE_URL;
+    private listKeys: Record<string, string> = userKeyList;
+    private user: IUser = {
+        email: users.default.email,
+        password: users.default.password
     }
 
-    async login({email, password, isPartners}: ILogin){
-        
-        const listKeys = isPartners ? partnersKeyList : userKeyList;
+    constructor(isPartners?: boolean){
+        if(isPartners){
+            this.baseUrl = process.env.PARTNERS_URL; 
+            this.listKeys = partnersKeyList;
+        }
+    }
 
-        if(listKeys[email]){
-            this.userKey = listKeys[email];
-            return;
+    updateUser(user: IUser){
+        if(user) this.user = user;
+    }
+
+    async login({email, password}: ILogin){
+        console.log(this.baseUrl, this.listKeys)
+        if(this.listKeys[email]){
+            return this.listKeys[email];
         }
         const url = `${this.baseUrl}/Self/Login?\$select=UserKey`;
         const response = await fetch(url, {
@@ -39,21 +41,28 @@ class Authentication{
             },
             body: JSON.stringify({ Email: email, Password: password }),
         });
+
         if(response.status !== 200){
             console.info(await response.text());
             throw new Error(`Unexpected status code: ${response.status}`);
         }
         const data = await response.json();
-        this.userKey = data.value[0].UserKey;
+        return data.value[0].UserKey;
     }
 
     async createContext(options?: Parameters<typeof request.newContext>[0]){
+        const userKey = await this.login({
+            email: this.user.email,
+            password: this.user.password
+        });
+
 	    const baseOptions: Parameters<typeof request.newContext>[0] = {
             baseURL: process.env.BASE_URL,
             extraHTTPHeaders: {
-                "user-Key": this.userKey,
+                "user-Key": userKey,
             },
         };
+
         Object.assign(baseOptions, options);
         return await request.newContext(baseOptions);
     }

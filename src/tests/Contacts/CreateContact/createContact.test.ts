@@ -8,8 +8,7 @@ test.describe("Contact tests", () => {
 		const data = generateMockedContact();
 		const contact = await contactController.createContact(data);
 		expect(contact).toBeDefined();
-
-		await contactController.deleteContact(contact.id);
+		await contactController.deleteContact(contact);
 	});
 
 	test("Find all Contacts", async () => {
@@ -26,8 +25,8 @@ test.describe("Contact tests", () => {
 		expect(contacts).toContainEqual(contact1);
 		expect(contacts).toContainEqual(contact2);
 
-		await contactController.deleteContact(contact1.id);
-		await contactController.deleteContact(contact2.id);
+		await contactController.deleteContact(contact1);
+		await contactController.deleteContact(contact2);
 	});
 
 });

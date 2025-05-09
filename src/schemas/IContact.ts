@@ -1,9 +1,9 @@
 import z from "zod";
 
 const ContactSchema = z.object({
-	id: z.string(),
-	name: z.string(),
-	email: z.string().email().optional(),
+	Id: z.string(),
+	Name: z.string(),
+	Email: z.string().email().optional(),
 });
 
 type IContact = z.infer<typeof ContactSchema>;
