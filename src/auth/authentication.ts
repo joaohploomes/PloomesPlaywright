@@ -1,17 +1,20 @@
 import type { ILogin, IUser } from "@types";
 import users from "../constants/users";
 import { request } from "@playwright/test";
-import { getJsonFile } from "@lib";
+import { getJsonFile, updateJsonFile } from "@lib";
 import { config } from "dotenv";
 
 config();
-const userKeyList = getJsonFile("userKeys.json");
-const partnersKeyList = getJsonFile("partnersKeys.json");
+const userKeyPath = "userKeys.json";
+const partnersKeyPath = "partnersKeys.json";
+const userKeyList = getJsonFile(userKeyPath);
+const partnersKeyList = getJsonFile(partnersKeyPath);
 
 class Authentication{
 
     private baseUrl = process.env.BASE_URL;
     private listKeys: Record<string, string> = userKeyList;
+    private listKeyPath = userKeyPath;
     private user: IUser = {
         email: users.default.email,
         password: users.default.password
@@ -19,6 +22,7 @@ class Authentication{
 
     constructor(isPartners?: boolean){
         if(isPartners){
+            this.listKeyPath = partnersKeyPath;
             this.baseUrl = process.env.PARTNERS_URL; 
             this.listKeys = partnersKeyList;
         }
@@ -29,7 +33,6 @@ class Authentication{
     }
 
     async login({email, password}: ILogin){
-        console.log(this.baseUrl, this.listKeys)
         if(this.listKeys[email]){
             return this.listKeys[email];
         }
@@ -47,7 +50,16 @@ class Authentication{
             throw new Error(`Unexpected status code: ${response.status}`);
         }
         const data = await response.json();
-        return data.value[0].UserKey;
+        const userKey = data.value[0].UserKey;
+
+        this.listKeys = {
+            ...this.listKeys,
+            [email]: userKey
+        }
+
+        await updateJsonFile(this.listKeyPath, this.listKeys);
+
+        return userKey;
     }
 
     async createContext(options?: Parameters<typeof request.newContext>[0]){

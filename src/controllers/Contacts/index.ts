@@ -23,7 +23,8 @@ class ContactController {
 	};
 
 	async createContact(data: IContact) {
-		const contactService = new ContactService(this.user);
+		const user = this?.user || undefined; 
+		const contactService = new ContactService(user);
 		const response = await contactService.createContact(data);
 		return response;
 	};
@@ -37,7 +38,9 @@ class ContactController {
 	async deleteContact(contact: IContact) {
 		const contactService = new ContactService();
 		const response = await contactService.deleteContact(contact);
-		return response;
+		const text = await response.text();
+		
+		console.log(text)
 	};
 	
 };

@@ -9,11 +9,12 @@ class ContactService {
 	auth = new Authentication();
 
 	constructor(user?: IUser){
-		this.auth.updateUser(user);
+		if(user){
+			this.auth.updateUser(user);
+		}
 	}
 
 	async findAllContacts() {
-
 		const context = await this.auth.createContext();
 		const response = await context.get(this.endpoint);
 		const json = await response.json();

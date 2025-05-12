@@ -1,3 +1,7 @@
 import getJsonFile from "./getJsonFile";
+import updateJsonFile from "./updateJsonFile";
 
-export { getJsonFile };
+export { 
+    updateJsonFile,
+    getJsonFile
+};
