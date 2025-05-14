@@ -1,14 +1,14 @@
 import z from "zod";
 
 const DealSchema = z.object({
-    id: z.string(), 
-    title: z.string(),
-    amount: z.number().optional(),
-    creatorId: z.number(),
-    ownerId: z.number(),
-    pipelineId: z.number(),
-    stageId: z.number(),
-    contactId: z.number(),
+    Id: z.string(), 
+    Title: z.string(),
+    Amount: z.number().optional(),
+    CreatorId: z.number().optional(),
+    OwnerId: z.number().optional(),
+    PipelineId: z.number(),
+    StageId: z.number(),
+    ContactId: z.number(),
 });
 
 type IDeal = z.infer<typeof DealSchema>;
