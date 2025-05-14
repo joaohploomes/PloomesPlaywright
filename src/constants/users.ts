@@ -1,12 +1,12 @@
 
 const users = {
     default: {
-        email: "dev.m1@ploomes.com",
-        password: "12345678"
+        email: "rebeca.amin@ploomes.com",
+        password: "1234"
     },
     usuario1: {
-        email: "dev.m1@ploomes.com",
-        password: "12345678"
+        email: "rebeca.amin@ploomes.com",
+        password: "1234"
     }
 }
 

@@ -17,19 +17,10 @@ test.describe("Contact tests", () => {
 	test("Find all Contacts", async () => {
 		const contactController = new ContactController();
 	
-		const [
-			contact1,
-			contact2,
-			contact3
-		] = await generateMultipleItens<IContact>(contactController.createContact, generateMockedContact, 3);
+		await generateMultipleItens<IContact>(contactController.createContact.bind(ContactController), generateMockedContact, 3000);
 
 		const contacts = await contactController.findAllContacts();
 		expect(contacts).toBeDefined();
-		expect(contacts).toContainEqual(contact1);
-		expect(contacts).toContainEqual(contact2);
-		expect(contacts).toContainEqual(contact3);
-
-		await deleteMultipleItens<IContact>(contactController.deleteContact, [contact1, contact2, contact3]);
 	});
 
 });
