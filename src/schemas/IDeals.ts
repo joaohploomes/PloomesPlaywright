@@ -1,7 +1,7 @@
 import z from "zod";
 
 const DealSchema = z.object({
-    Id: z.string(), 
+    Id: z.number(), 
     Title: z.string(),
     Amount: z.number().optional(),
     CreatorId: z.number().optional(),

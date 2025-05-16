@@ -38,7 +38,6 @@ class DealService {
     async deleteDeal(Deal: IDeal) {
         const context = await this.auth.createContext();
         const response = await context.delete(`${this.endpoint}(${Deal.Id})`);
-        const json = await response.json();
         return response;
     };
     
