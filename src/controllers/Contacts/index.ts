@@ -38,9 +38,7 @@ class ContactController {
 	async deleteContact(contact: IContact) {
 		const contactService = new ContactService();
 		const response = await contactService.deleteContact(contact);
-		const text = await response.text();
-		
-		console.log(text)
+		const text = await response.text();		
 	};
 	
 };

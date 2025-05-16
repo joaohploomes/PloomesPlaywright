@@ -7,14 +7,14 @@ import { config } from "dotenv";
 config();
 const userKeyPath = "userKeys.json";
 const partnersKeyPath = "partnersKeys.json";
-const userKeyList = getJsonFile(userKeyPath);
-const partnersKeyList = getJsonFile(partnersKeyPath);
+let userKeyList = getJsonFile(userKeyPath);
+let partnersKeyList = getJsonFile(partnersKeyPath);
 
 class Authentication{
 
     private baseUrl = process.env.BASE_URL;
-    private listKeys: Record<string, string> = userKeyList;
     private listKeyPath = userKeyPath;
+    private isPartners = false;
     private user: IUser = {
         email: users.default.email,
         password: users.default.password
@@ -24,7 +24,7 @@ class Authentication{
         if(isPartners){
             this.listKeyPath = partnersKeyPath;
             this.baseUrl = process.env.PARTNERS_URL; 
-            this.listKeys = partnersKeyList;
+            this.isPartners = true;
         }
     }
 
@@ -33,8 +33,9 @@ class Authentication{
     }
 
     async login({email, password}: ILogin){
-        if(this.listKeys[email]){
-            return this.listKeys[email];
+        let listKeys = this.isPartners? partnersKeyList : userKeyList
+        if(listKeys[email]){
+            return listKeys[email];
         }
         const url = `${this.baseUrl}/Self/Login?\$select=UserKey`;
         const response = await fetch(url, {
@@ -52,12 +53,18 @@ class Authentication{
         const data = await response.json();
         const userKey = data.value[0].UserKey;
 
-        this.listKeys = {
-            ...this.listKeys,
+        listKeys = {
+            ...listKeys,
             [email]: userKey
         }
 
-        await updateJsonFile(this.listKeyPath, this.listKeys);
+        if(this.isPartners){
+            partnersKeyList = listKeys;
+        } else {
+            userKeyList = listKeys
+        };
+
+        await updateJsonFile(this.listKeyPath, listKeys);
 
         return userKey;
     }
