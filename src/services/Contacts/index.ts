@@ -14,16 +14,16 @@ class ContactService {
 		}
 	}
 
-	async findAllContacts() {
+	async findAllContacts(): Promise<IContact[]> {
 		const context = await this.auth.createContext();
-		const response = await context.get(`${this.endpoint}?$orderby=CreateDate desc`)
+		const response = await context.get(`${this.endpoint}?$orderby=CreateDate desc&`)
 		const json = await response.json();
 		return json.value;
 	};
 
-	async createContact(Contact: IContact) {
+	async createContact(Contact: IContact): Promise<IContact> {
 		const context = await this.auth.createContext();
-		const response = await context.post(this.endpoint, {data: Contact});
+		const response = await context.post(`${this.endpoint}`, {data: Contact});
 		const json = await response.json();
 		return json.value[0];
 	};
@@ -41,7 +41,7 @@ class ContactService {
 		return response;
 	};
 
-	async findContactById(Id: Number) {
+	async findContactById(Id: number): Promise<IContact[]> {
 		const context = await this.auth.createContext();
 		const response = await context.get(`${this.endpoint}?$filter=Id+eq+${Id}`);
 		const json = await response.json();
