@@ -16,7 +16,7 @@ class ContactController {
 		return response;
 	};
 
-	async findContactById(id: number) {
+	async findContactById(id: Number) {
 		const contactService = new ContactService(this.user);
 		const response = await contactService.findContactById(id);
 		return response;

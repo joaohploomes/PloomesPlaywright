@@ -16,7 +16,7 @@ class ContactService {
 
 	async findAllContacts() {
 		const context = await this.auth.createContext();
-		const response = await context.get(this.endpoint);
+		const response = await context.get(`${this.endpoint}?$orderby=CreateDate desc`)
 		const json = await response.json();
 		return json.value;
 	};
@@ -41,9 +41,9 @@ class ContactService {
 		return response;
 	};
 
-	async findContactById(id: number) {
+	async findContactById(Id: Number) {
 		const context = await this.auth.createContext();
-		const response = await context.get(`${this.endpoint}(${id})`);
+		const response = await context.get(`${this.endpoint}?$filter=Id+eq+${Id}`);
 		const json = await response.json();
 		return json.value;
 	};
