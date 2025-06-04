@@ -21,12 +21,11 @@ test.describe("Get Contact", () => {
     test("Get All Contacts", async () => {
         const contactController = new ContactController();
         const contacts = await generateMultipleItens<IContact>(contactController.createContact.bind(ContactController), generateMockedContact, 3);
-        
         expect(contacts).toBeDefined();
         
         const fetchedContacts = await contactController.findAllContacts();
         expect(fetchedContacts).toBeDefined();
-        expect(fetchedContacts).toMatchArrayId<IContact>();
+        expect(fetchedContacts).toMatchArrayId<IContact>(contacts);
         
         await deleteMultipleItens<IContact>(contactController.deleteContact, fetchedContacts);
     });

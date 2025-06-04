@@ -1,7 +1,7 @@
 
 const users = {
     default: {
-        email: "playwright.adm@backend2.com",
+        email: "playwright@enterprise.com",
         password: "12345678"
     },
     usuario1: {
