@@ -2,6 +2,7 @@ import type { APIRequestContext } from "@playwright/test";
 import type { IContact } from "@schemas";
 import Authentication from "../../auth/authentication";
 import type { IUser } from "@types";
+import { QueryOdata } from "@lib";
 
 class ContactService {
 	endpoint = "Contacts";
@@ -16,7 +17,8 @@ class ContactService {
 
 	async findAllContacts(): Promise<IContact[]> {
 		const context = await this.auth.createContext();
-		const response = await context.get(`${this.endpoint}?$orderby=CreateDate desc&`)
+		const odata = new QueryOdata();
+		const response = await context.get(`${this.endpoint}${odata.orderBy(["Id desc"])}`);
 		const json = await response.json();
 		return json.value;
 	};
@@ -43,7 +45,8 @@ class ContactService {
 
 	async findContactById(Id: number): Promise<IContact[]> {
 		const context = await this.auth.createContext();
-		const response = await context.get(`${this.endpoint}?$filter=Id+eq+${Id}`);
+		const odata = new QueryOdata();
+		const response = await context.get(`${this.endpoint}${odata.filter(`Id eq ${Id}`)}`);
 		const json = await response.json();
 		return json.value;
 	};
