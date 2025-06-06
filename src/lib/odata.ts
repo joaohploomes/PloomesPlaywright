@@ -1,29 +1,48 @@
+import type { IQueryOdata, IOrderBy } from "@types";
 class QueryOdata {
   private query: string;
+  private $top = "";
+  private $skip = "";
+  private $orderBy = "";
 
-  constructor() {
+  constructor(prop: IQueryOdata) {
     this.query = '';
+    this.orderBy(prop.orderBy);
+    this.top(prop.top);
+    this.skip(prop.skip);
   };
 
-  public select(fields: string[]): QueryOdata {
+  public select(fields: string[]) {
     this.query += `$select=${fields.join(',')}`;
     return this;
   };
 
-  public filter(condition: string): QueryOdata {
+  public filter(condition: string) {
     this.query += `$filter=${condition}`;
     return this;
   };
 
-  public orderBy(fields: string[]): QueryOdata {
-    this.query += `$orderby=${fields.join(',')}`;
-    return this;
+  public orderBy(fields?: IOrderBy) {
+    if (!fields || Object.keys(fields).length === 0) return;
+    const orderByFields = Object.entries(fields);
+    const queryOrderBy = orderByFields.map(([field, direction]) => {
+      return `${field} ${direction}`;
+    });
+    this.$orderBy = `$orderby=${queryOrderBy.join(',')}`;
   };
 
-  public top(count: number): QueryOdata {
-    this.query += `$top=${count}`;
-    return this;
+  public top(count?: number) {
+    if (count !== undefined && count > 0) this.$top = `$top=${count}`;
   };
+
+  public skip(count?: number) {
+    if (count !== undefined && count > 0) this.$skip = `$skip=${count}`;
+  };
+
+  public toString(): string {
+    const filters = [this.$orderBy, this.$top, this.$skip];
+    return filters.filter(Boolean).join("&");
+  }
 
 };
 

@@ -17,8 +17,11 @@ class ContactService {
 
 	async findAllContacts(): Promise<IContact[]> {
 		const context = await this.auth.createContext();
-		const odata = new QueryOdata();
-		const response = await context.get(`${this.endpoint}${odata.orderBy(["Id desc"])}`);
+		const odata = new QueryOdata({
+			orderBy: { Id : "desc" },
+		});
+		const query = odata.toString();
+		const response = await context.get(`${this.endpoint}?${query}`);
 		const json = await response.json();
 		return json.value;
 	};
@@ -45,8 +48,8 @@ class ContactService {
 
 	async findContactById(Id: number): Promise<IContact[]> {
 		const context = await this.auth.createContext();
-		const odata = new QueryOdata();
-		const response = await context.get(`${this.endpoint}${odata.filter(`Id eq ${Id}`)}`);
+		const query = `$filter=Id eq ${Id}`;
+		const response = await context.get(`${this.endpoint}?${query}`);
 		const json = await response.json();
 		return json.value;
 	};
