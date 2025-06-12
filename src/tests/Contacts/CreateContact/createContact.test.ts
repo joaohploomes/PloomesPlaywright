@@ -3,9 +3,19 @@ import { expect, test } from "@playwright/test";
 import generateMockedContact from "../mockedDataContact/mockedDataContact";
 
 test.describe("Create Contact", () => {
-	test("Create a Contact Correctly", async () => {
+	test("Create a Company Correctly", async () => {
 		const contactController = new ContactController();
-		const data = generateMockedContact();
+		const data = generateMockedContact("company");
+		const contact = await contactController.createContact(data);
+	
+		expect(contact).toBeDefined();
+
+		await contactController.deleteContact(contact);
+	});
+
+	test("Create a Person Correctly", async () => {
+		const contactController = new ContactController();
+		const data = generateMockedContact("person");
 		const contact = await contactController.createContact(data);
 	
 		expect(contact).toBeDefined();

@@ -4,17 +4,20 @@ class QueryOdata {
   private $top = "";
   private $skip = "";
   private $orderBy = "";
+  private $filter = "";
+  private $select = "";
 
   constructor(prop: IQueryOdata) {
     this.query = '';
     this.orderBy(prop.orderBy);
     this.top(prop.top);
     this.skip(prop.skip);
+    this.select(prop.select);
   };
 
   public select(fields: string[]) {
-    this.query += `$select=${fields.join(',')}`;
-    return this;
+    if (fields === undefined || fields.length === 0) return;
+    this.$select = `$select=${fields.join(',')}`;
   };
 
   public filter(condition: string) {
@@ -40,9 +43,9 @@ class QueryOdata {
   };
 
   public toString(): string {
-    const filters = [this.$orderBy, this.$top, this.$skip];
+    const filters = [this.$select, this.$orderBy, this.$top, this.$skip];
     return filters.filter(Boolean).join("&");
-  }
+  };
 
 };
 

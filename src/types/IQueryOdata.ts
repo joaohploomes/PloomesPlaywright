@@ -1,13 +1,14 @@
 interface IOrderBy {
     [key: string]: "asc" | "desc";
-}
+};
 
 interface IFilter {
     [key: string]: {
         operator: string;
         value: string;
     }
-}
+};
+
 
 interface IQueryOdata {
     filter?: {

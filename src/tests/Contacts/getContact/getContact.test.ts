@@ -7,7 +7,7 @@ import type { IContact } from "@schemas";
 test.describe("Get Contact", () => {
     test("Get a Contact Correctly", async () => {
         const contactController = new ContactController();
-        const data = generateMockedContact();
+        const data = generateMockedContact("person");
         const contact = await contactController.createContact(data);
         expect(contact).toBeDefined();
 
@@ -20,7 +20,7 @@ test.describe("Get Contact", () => {
 
     test("Get All Contacts", async () => {
         const contactController = new ContactController();
-        const contacts = await generateMultipleItens<IContact>(contactController.createContact.bind(ContactController), generateMockedContact, 3);
+        const contacts = await generateMultipleItens<IContact>(contactController.createContact.bind(ContactController), ()=> generateMockedContact("person"), 3);
         expect(contacts).toBeDefined();
         
         const fetchedContacts = await contactController.findAllContacts();

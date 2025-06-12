@@ -5,11 +5,11 @@ import generateMockedContact from "../mockedDataContact/mockedDataContact";
 test.describe("Update Contact", () => {
     test("Update a Contact Correctly", async () => {
         const contactController = new ContactController();
-        const data = generateMockedContact();
+        const data = generateMockedContact("person");
         const contact = await contactController.createContact(data);
         expect(contact).toBeDefined();
 
-        const updateData = generateMockedContact();
+        const updateData = generateMockedContact("person");
         const updatedContact = await contactController.updateContact(contact, updateData);
         expect(updatedContact.Name).toBe(updateData.Name);
 

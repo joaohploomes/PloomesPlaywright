@@ -5,7 +5,7 @@ import generateMockedContact from "../mockedDataContact/mockedDataContact";
 test.describe("Delete Contact", () => {
 	test("Delete a Contact Correctly", async () => {
 		const contactController = new ContactController();
-		const data = generateMockedContact();
+		const data = generateMockedContact("company");
 		const contact = await contactController.createContact(data);
 		expect(contact).toBeDefined();
 
