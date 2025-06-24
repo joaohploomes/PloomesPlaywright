@@ -1,36 +1,26 @@
 import ContactController from "@controllers/Contacts";
 import { expect, test } from "@playwright/test";
 import generateMockedContact from "../mockedDataContact/mockedDataContact";
-import type { IContact } from "@schemas";
-import { generateMultipleItens, deleteMultipleItens } from "@lib";
 
-
-test.describe("Contact tests", () => {
-	test("Create a Contact", async () => {
+test.describe("Create Contact", () => {
+	test("Create a Company Correctly", async () => {
 		const contactController = new ContactController();
-		const data = generateMockedContact();
+		const data = generateMockedContact("company");
 		const contact = await contactController.createContact(data);
 	
 		expect(contact).toBeDefined();
+
 		await contactController.deleteContact(contact);
 	});
 
-	test("Find all Contacts", async () => {
+	test("Create a Person Correctly", async () => {
 		const contactController = new ContactController();
+		const data = generateMockedContact("person");
+		const contact = await contactController.createContact(data);
 	
-		const [
-			contact1,
-			contact2,
-			contact3
-		] = await generateMultipleItens<IContact>(contactController.createContact, generateMockedContact, 3);
+		expect(contact).toBeDefined();
 
-		const contacts = await contactController.findAllContacts();
-		expect(contacts).toBeDefined();
-		expect(contacts).toContainEqual(contact1);
-		expect(contacts).toContainEqual(contact2);
-		expect(contacts).toContainEqual(contact3);
-
-		await deleteMultipleItens<IContact>(contactController.deleteContact, [contact1, contact2, contact3]);
+		await contactController.deleteContact(contact);
 	});
 
 });

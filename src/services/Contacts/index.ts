@@ -2,6 +2,7 @@ import type { APIRequestContext } from "@playwright/test";
 import type { IContact } from "@schemas";
 import Authentication from "../../auth/authentication";
 import type { IUser } from "@types";
+import { QueryOdata } from "@lib";
 
 class ContactService {
 	endpoint = "Contacts";
@@ -14,16 +15,20 @@ class ContactService {
 		}
 	}
 
-	async findAllContacts() {
+	async findAllContacts(): Promise<IContact[]> {
 		const context = await this.auth.createContext();
-		const response = await context.get(this.endpoint);
+		const odata = new QueryOdata({
+			orderBy: { Id : "desc" },
+		});
+		const query = odata.toString();
+		const response = await context.get(`${this.endpoint}?${query}`);
 		const json = await response.json();
 		return json.value;
 	};
 
-	async createContact(Contact: IContact) {
+	async createContact(Contact: IContact): Promise<IContact> {
 		const context = await this.auth.createContext();
-		const response = await context.post(this.endpoint, {data: Contact});
+		const response = await context.post(`${this.endpoint}`, {data: Contact});
 		const json = await response.json();
 		return json.value[0];
 	};
@@ -41,9 +46,10 @@ class ContactService {
 		return response;
 	};
 
-	async findContactById(id: number) {
+	async findContactById(Id: number): Promise<IContact[]> {
 		const context = await this.auth.createContext();
-		const response = await context.get(`${this.endpoint}(${id})`);
+		const query = `$filter=Id eq ${Id}`;
+		const response = await context.get(`${this.endpoint}?${query}`);
 		const json = await response.json();
 		return json.value;
 	};

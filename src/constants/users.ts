@@ -1,13 +1,13 @@
 
 const users = {
     default: {
-        email: "dev.m1@ploomes.com",
+        email: "playwright@enterprise.com",
         password: "12345678"
     },
     usuario1: {
-        email: "dev.m1@ploomes.com",
+        email: "playwright.nao.adm@backend2.com",
         password: "12345678"
-    }
+    },
 }
 
 export default users;
