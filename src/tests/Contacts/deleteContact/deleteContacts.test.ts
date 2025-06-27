@@ -7,7 +7,7 @@ test.describe("Delete Contact", () => {
 		const contactController = new ContactController();
 		const data = generateMockedContact("company");
 		const contact = await contactController.createContact(data);
-		expect(contact).toBeDefined();
+		expect(contact.Id).toBeDefined();
 
         await contactController.deleteContact(contact);
         const deletedContact = await contactController.findContactById(contact.Id);

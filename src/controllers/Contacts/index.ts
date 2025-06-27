@@ -22,7 +22,7 @@ class ContactController {
 		return response;
 	};
 
-	async createContact(data: IContact) {
+	async createContact(data: Partial<IContact>) {
 		const user = this?.user || undefined; 
 		const contactService = new ContactService(user);
 		const response = await contactService.createContact(data);

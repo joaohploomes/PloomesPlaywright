@@ -7,8 +7,7 @@ test.describe("Create Contact", () => {
 		const contactController = new ContactController();
 		const data = generateMockedContact("company");
 		const contact = await contactController.createContact(data);
-	
-		expect(contact).toBeDefined();
+		expect(contact.Id).toBeDefined();
 
 		await contactController.deleteContact(contact);
 	});
@@ -17,8 +16,7 @@ test.describe("Create Contact", () => {
 		const contactController = new ContactController();
 		const data = generateMockedContact("person");
 		const contact = await contactController.createContact(data);
-	
-		expect(contact).toBeDefined();
+		expect(contact.Id).toBeDefined();
 
 		await contactController.deleteContact(contact);
 	});

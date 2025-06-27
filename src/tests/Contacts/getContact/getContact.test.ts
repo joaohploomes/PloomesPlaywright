@@ -9,7 +9,7 @@ test.describe("Get Contact", () => {
         const contactController = new ContactController();
         const data = generateMockedContact("person");
         const contact = await contactController.createContact(data);
-        expect(contact).toBeDefined();
+        expect(contact.Id).toBeDefined();
 
         const [fetchedContact] = await contactController.findContactById(contact.Id);
         expect(fetchedContact).toBeDefined();
