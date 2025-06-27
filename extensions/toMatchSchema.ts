@@ -1,4 +1,5 @@
 import { ZodError, type ZodSchema } from "zod";
+import { expect } from "@playwright/test";
 
 function toMatchSchema<T>(received: T, schema: ZodSchema<T>){
     try{
@@ -20,5 +21,7 @@ function toMatchSchema<T>(received: T, schema: ZodSchema<T>){
         }
     }
 }
+
+expect.extend({ toMatchSchema });
 
 export default toMatchSchema;

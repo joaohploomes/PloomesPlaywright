@@ -1,3 +1,5 @@
+import { expect } from "@playwright/test";
+
 type WithId<T> = T & { Id: number }; 
 
 function toMatchArrayId<T> (received: WithId<T>[], array: WithId<T>[]){
@@ -26,5 +28,7 @@ function toMatchArrayId<T> (received: WithId<T>[], array: WithId<T>[]){
         }
     }
 }
+
+expect.extend({ toMatchArrayId });
 
 export default toMatchArrayId;
