@@ -23,4 +23,6 @@ jobs:
         run: npm install
 
       - name: Run tests
+        env: 
+          API_URL: 'https://api2-qa-backend2.ploomeswin.dev'
         run: npm run test
