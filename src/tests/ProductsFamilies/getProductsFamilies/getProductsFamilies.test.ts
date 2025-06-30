@@ -17,13 +17,13 @@ test.describe("Get Products Families", () => {
 
     test("Get all Products Families", async () => {
         const productsFamiliesController = new ProductsFamiliesController();
-        const productsFamilies = await generateMultipleItens<IProductsFamilies>(productsFamiliesController.createProductsFamilies.bind(ProductsFamiliesController), generateMockedProductsFamilies, 3);
+        const productsFamilies = await generateMultipleItens<IProductsFamilies>(productsFamiliesController.createProductsFamilies.bind(productsFamiliesController), generateMockedProductsFamilies, 3);
         expect(productsFamilies).toBeDefined();
 
         const fetchedProductsFamilies = await productsFamiliesController.findAllProductsFamilies();
         expect(fetchedProductsFamilies).toBeDefined();
         expect(fetchedProductsFamilies).toMatchArrayId<IProductsFamilies>(productsFamilies);
 
-        await deleteMultipleItens<IProductsFamilies>(productsFamiliesController.deleteProductsFamilies, fetchedProductsFamilies);
+        await deleteMultipleItens<IProductsFamilies>(productsFamiliesController.deleteProductsFamilies.bind(productsFamiliesController), fetchedProductsFamilies);
     });
 });
