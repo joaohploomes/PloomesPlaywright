@@ -13,7 +13,7 @@ class ContactService {
 		if(user){
 			this.auth.updateUser(user);
 		}
-	}
+	};
 
 	async findAllContacts(): Promise<IContact[]> {
 		const context = await this.auth.createContext();

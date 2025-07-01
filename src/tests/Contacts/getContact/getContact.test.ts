@@ -9,7 +9,7 @@ test.describe("Get Contact", () => {
         const contactController = new ContactController();
         const data = generateMockedContact("person");
         const contact = await contactController.createContact(data);
-        expect(contact).toBeDefined();
+        expect(contact.Id).toBeDefined();
 
         const [fetchedContact] = await contactController.findContactById(contact.Id);
         expect(fetchedContact).toBeDefined();
@@ -20,13 +20,13 @@ test.describe("Get Contact", () => {
 
     test("Get All Contacts", async () => {
         const contactController = new ContactController();
-        const contacts = await generateMultipleItens<IContact>(contactController.createContact.bind(ContactController), ()=> generateMockedContact("person"), 3);
+        const contacts = await generateMultipleItens<IContact>(contactController.createContact.bind(contactController), ()=> generateMockedContact("person"), 3);
         expect(contacts).toBeDefined();
         
         const fetchedContacts = await contactController.findAllContacts();
         expect(fetchedContacts).toBeDefined();
         expect(fetchedContacts).toMatchArrayId<IContact>(contacts);
         
-        await deleteMultipleItens<IContact>(contactController.deleteContact, fetchedContacts);
+        await deleteMultipleItens<IContact>(contactController.deleteContact.bind(contactController), fetchedContacts);
     });
 });

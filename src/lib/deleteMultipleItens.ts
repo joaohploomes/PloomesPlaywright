@@ -1,5 +1,5 @@
-async function deleteMultipleItens<T>(callback: (data: T)=> Promise<void>, array: T[]){
-	array.forEach(callback);
-};
+async function deleteMultipleItens<T>(callback: (data: T) => Promise<unknown>, array: T[]) {
+    await Promise.all(array.map(callback));
+}
 
 export default deleteMultipleItens;

@@ -5,7 +5,7 @@ const users = {
         password: "12345678"
     },
     usuario1: {
-        email: "playwright.nao.adm@backend2.com",
+        email: "playwright.nao.adm@enterprise.com",
         password: "12345678"
     },
 }

@@ -7,7 +7,7 @@ test.describe("Update Contact", () => {
         const contactController = new ContactController();
         const data = generateMockedContact("person");
         const contact = await contactController.createContact(data);
-        expect(contact).toBeDefined();
+        expect(contact.Id).toBeDefined();
 
         const updateData = generateMockedContact("person");
         const updatedContact = await contactController.updateContact(contact, updateData);
