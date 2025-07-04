@@ -1,8 +1,9 @@
 import { faker } from "@faker-js/faker";
 import type { IDocumentTemplates } from "@schemas";
 
-function generateMockedDocumentTemplates(type: "Quote" | "Order" | "Document"): IDocumentTemplates {
+function generateMockedDocumentTemplates(type: "Quote" | "Order" | "Client Document" | "Deal Document"): IDocumentTemplates {
     let entityId: number;
+    let secondaryEntityId: number | undefined;
 
     switch (type) {
         case "Quote":
@@ -11,8 +12,13 @@ function generateMockedDocumentTemplates(type: "Quote" | "Order" | "Document"): 
         case "Order":
             entityId = 4;
             break;
-        case "Document":
+        case "Client Document":
             entityId = 66;
+            secondaryEntityId = 1;
+            break;
+        case "Deal Document":
+            entityId = 66;
+            secondaryEntityId = 2;
             break;
         default:
             throw new Error("Invalid type provided");

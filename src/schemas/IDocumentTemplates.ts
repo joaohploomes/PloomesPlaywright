@@ -4,6 +4,7 @@ const DocumentTemplateSchema = zod.object({
     AllowedTeams: zod.array(zod.number()).optional(),
     AllowedUsers: zod.array(zod.number()).optional(),
     EntityId: zod.number().int(),
+    SecondaryEntityId: zod.number().int().optional(),
     FileNameVariables: zod.array(zod.string()).optional(),
     Name: zod.string(),
     Pages: zod.array(zod.object({}).optional()).optional(),
