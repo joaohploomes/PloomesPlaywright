@@ -26,6 +26,7 @@ function generateMockedDocumentTemplates(type: "Quote" | "Order" | "Client Docum
     return {
         Name: faker.lorem.words(2),
         EntityId: entityId,
+        SecondaryEntityId: secondaryEntityId,
     };
 };
 
