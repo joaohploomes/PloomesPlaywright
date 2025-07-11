@@ -3,6 +3,7 @@ import { type IDeal, DealSchema } from "./IDeals";
 import{ type IProductsFamilies, ProductsFamiliesSchema } from "./IProductsFamilies";
 import { type IProductsGroups, ProductsGroupsSchema } from "./IProductsGroups";
 import { type IProducts, ProductsSchema } from "./IProducts";
+import { type IDocumentTemplates, DocumentTemplateSchema } from "./IDocumentTemplates";
 
 export {
     ContactSchema,
@@ -10,6 +11,7 @@ export {
     ProductsFamiliesSchema,
     ProductsGroupsSchema,
     ProductsSchema,
+    DocumentTemplateSchema,
 };
 
 export type {
@@ -18,4 +20,5 @@ export type {
     IProductsFamilies,
     IProductsGroups,
     IProducts,
+    IDocumentTemplates,
 };
