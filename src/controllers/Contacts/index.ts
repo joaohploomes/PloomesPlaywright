@@ -10,9 +10,9 @@ class ContactController {
 		this.user = user;
 	}
 
-	async findAllContacts() {
+	async findAllContacts(top = 15) {
 		const contactService = new ContactService(this.user);
-		const response = await contactService.findAllContacts();
+		const response = await contactService.findAllContacts(top);
 		return response;
 	};
 

@@ -27,6 +27,6 @@ test.describe("Get Contact", () => {
         expect(fetchedContacts).toBeDefined();
         expect(fetchedContacts).toMatchArrayId<IContact>(contacts);
         
-        await deleteMultipleItens<IContact>(contactController.deleteContact.bind(contactController), fetchedContacts);
+        await deleteMultipleItens<IContact>(contactController.deleteContact.bind(contactController), contacts);
     });
 });

@@ -12,9 +12,9 @@ class ProductsController {
         this.user = user;
     }
 
-    async findAllProducts() {
+    async findAllProducts(top = 15) {
         const productsService = new ProductsService(this.user);
-        const response = await productsService.findAllProducts();
+        const response = await productsService.findAllProducts(top);
         return response;
     };
 

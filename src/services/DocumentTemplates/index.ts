@@ -1,5 +1,5 @@
 import type { APIRequestContext } from "@playwright/test";
-import type { IDocumentTemplate } from "@schemas";
+import type { IDocumentTemplates } from "@schemas";
 import Authentication from "../../auth/authentication";
 import type { IUser } from "@types";
 import { QueryOdata } from "@lib";
@@ -15,10 +15,11 @@ class DocumentTemplatesService {
         }
     }
 
-    async findAllDocumentTemplates(): Promise<IDocumentTemplate[]> {
+    async findAllDocumentTemplates(top: number): Promise<IDocumentTemplates[]> {
         const context = await this.auth.createContext();
         const odata = new QueryOdata({
             orderBy: { Id: "desc" },
+            top: top,
         });
         const query = odata.toString();
         const response = await context.get(`${this.endpoint}?${query}`);
@@ -26,27 +27,27 @@ class DocumentTemplatesService {
         return json.value;
     }
 
-    async createDocumentTemplates(documentTemplate: IDocumentTemplate): Promise<IDocumentTemplate> {
+    async createDocumentTemplates(documentTemplate: IDocumentTemplates): Promise<IDocumentTemplates> {
         const context = await this.auth.createContext();
         const response = await context.post(`${this.endpoint}`, { data: documentTemplate });
         const json = await response.json();
         return json.value[0];
     }
 
-    async updateDocumentTemplates(documentTemplate: IDocumentTemplate, data: Partial<IDocumentTemplate>) {
+    async updateDocumentTemplates(documentTemplate: IDocumentTemplates, data: Partial<IDocumentTemplates>) {
         const context = await this.auth.createContext();
         const response = await context.patch(`${this.endpoint}(${documentTemplate.Id})`, { data });
         const json = await response.json();
         return json.value[0];
     }
 
-    async deleteDocumentTemplates(documentTemplate: IDocumentTemplate) {
+    async deleteDocumentTemplates(documentTemplate: IDocumentTemplates) {
         const context = await this.auth.createContext();
         const response = await context.delete(`${this.endpoint}(${documentTemplate.Id})`);
         return response;
     }
 
-    async findDocumentTemplatesById(Id: number): Promise<IDocumentTemplate[]> {
+    async findDocumentTemplatesById(Id: number): Promise<IDocumentTemplates[]> {
         const context = await this.auth.createContext();
         const query = `$filter=Id eq ${Id}`;
         const response = await context.get(`${this.endpoint}?${query}`);

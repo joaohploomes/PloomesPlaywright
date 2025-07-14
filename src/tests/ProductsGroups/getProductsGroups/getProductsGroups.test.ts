@@ -24,6 +24,6 @@ test.describe("Get Products Groups", () => {
         expect(fetchedProductsGroups).toBeDefined();
         expect(fetchedProductsGroups).toMatchArrayId<IProductsGroups>(productsGroups);
 
-        await deleteMultipleItens<IProductsGroups>(productsGroupsController.deleteProductsGroups.bind(productsGroupsController),fetchedProductsGroups);
+        await deleteMultipleItens<IProductsGroups>(productsGroupsController.deleteProductsGroups.bind(productsGroupsController),productsGroups);
     });
 });

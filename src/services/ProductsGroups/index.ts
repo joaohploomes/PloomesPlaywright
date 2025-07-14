@@ -15,10 +15,11 @@ class ProductsGroupsService {
         }
     }
 
-    async findAllProductsGroups(): Promise<IProductsGroups[]> {
+    async findAllProductsGroups(top: number): Promise<IProductsGroups[]> {
         const context = await this.auth.createContext();
         const odata = new QueryOdata({
             orderBy: { Id: "desc" },
+            top,
         });
         const query = odata.toString();
         const response = await context.get(`${this.endpoint}?${query}`);
