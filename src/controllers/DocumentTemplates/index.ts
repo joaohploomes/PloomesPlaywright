@@ -16,28 +16,28 @@ class DocumentTemplatesController {
         return response;
     };
 
-    async findDocumentTemplatesById(Id: number) {
+    async findDocumentTemplateById(Id: number) {
         const documentTemplatesService = new DocumentTemplatesService(this.user);
-        const response = await documentTemplatesService.findDocumentTemplatesById(Id);
+        const response = await documentTemplatesService.findDocumentTemplateById(Id);
         return response;
     };
 
-    async createDocumentTemplates(data: IDocumentTemplates) {
+    async createDocumentTemplate(data: IDocumentTemplates) {
         const user = this?.user || undefined;
         const documentTemplatesService = new DocumentTemplatesService(user);
-        const response = await documentTemplatesService.createDocumentTemplates(data);
+        const response = await documentTemplatesService.createDocumentTemplate(data);
         return response;
     };
 
-    async updateDocumentTemplates(documentTemplate: IDocumentTemplates, data: Partial<IDocumentTemplates>) {
+    async updateDocumentTemplate(documentTemplate: IDocumentTemplates, data: Partial<IDocumentTemplates>) {
         const documentTemplatesService = new DocumentTemplatesService(this.user);
-        const response = await documentTemplatesService.updateDocumentTemplates(documentTemplate, data);
+        const response = await documentTemplatesService.updateDocumentTemplate(documentTemplate, data);
         return response;
     };
 
-    async deleteDocumentTemplates(documentTemplate: IDocumentTemplates) {
+    async deleteDocumentTemplate(documentTemplate: IDocumentTemplates) {
         const documentTemplatesService = new DocumentTemplatesService();
-        const response = await documentTemplatesService.deleteDocumentTemplates(documentTemplate);
+        const response = await documentTemplatesService.deleteDocumentTemplate(documentTemplate);
         return response;
     };
 };

@@ -27,27 +27,27 @@ class DocumentTemplatesService {
         return json.value;
     }
 
-    async createDocumentTemplates(documentTemplate: IDocumentTemplates): Promise<IDocumentTemplates> {
+    async createDocumentTemplate(documentTemplate: IDocumentTemplates): Promise<IDocumentTemplates> {
         const context = await this.auth.createContext();
         const response = await context.post(`${this.endpoint}`, { data: documentTemplate });
         const json = await response.json();
         return json.value[0];
     }
 
-    async updateDocumentTemplates(documentTemplate: IDocumentTemplates, data: Partial<IDocumentTemplates>) {
+    async updateDocumentTemplate(documentTemplate: IDocumentTemplates, data: Partial<IDocumentTemplates>) {
         const context = await this.auth.createContext();
         const response = await context.patch(`${this.endpoint}(${documentTemplate.Id})`, { data });
         const json = await response.json();
         return json.value[0];
     }
 
-    async deleteDocumentTemplates(documentTemplate: IDocumentTemplates) {
+    async deleteDocumentTemplate(documentTemplate: IDocumentTemplates) {
         const context = await this.auth.createContext();
         const response = await context.delete(`${this.endpoint}(${documentTemplate.Id})`);
         return response;
     }
 
-    async findDocumentTemplatesById(Id: number): Promise<IDocumentTemplates[]> {
+    async findDocumentTemplateById(Id: number): Promise<IDocumentTemplates[]> {
         const context = await this.auth.createContext();
         const query = `$filter=Id eq ${Id}`;
         const response = await context.get(`${this.endpoint}?${query}`);

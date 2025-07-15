@@ -1,7 +1,7 @@
 import type { IProducts } from "@schemas";
 import ProductsService from "@services/Products";
 import ProductsGroupsService from "@services/ProductsGroups";
-import generateMockedProductsGroups from "../../tests/ProductsGroups/mockedDataProductsGroups/mockedDataProductsGroups";
+import generateMockedProductsGroups from "../../tests/ProductsGroups/mockedDataProductsGroup/mockedDataProductsGroup";
 import type { IUser } from "@types";
 
 class ProductsController {
@@ -24,35 +24,35 @@ class ProductsController {
         return response;
     };
 
-    async createProducts(data: IProducts) {
+    async createProduct(data: IProducts) {
         const user = this?.user || undefined;
         const productsService = new ProductsService(user);
         const productsGroupsService = new ProductsGroupsService(user);
 
-        const group = await productsGroupsService.createProductsGroups(generateMockedProductsGroups());
+        const group = await productsGroupsService.createProductGroup(generateMockedProductsGroups());
 
         const dataWithGroup = {
             ...data,
             GroupId: group.Id,
         };
         
-        const response = await productsService.createProducts(dataWithGroup);
+        const response = await productsService.createProduct(dataWithGroup);
         return response;
     };
 
-    async updateProducts(product: IProducts, data: Partial<IProducts>) {
+    async updateProduct(product: IProducts, data: Partial<IProducts>) {
         const productsService = new ProductsService(this.user);
-        const response = await productsService.updateProducts(product, data);
+        const response = await productsService.updateProduct(product, data);
         return response;
     };
 
-    async deleteProducts(product: IProducts) {
+    async deleteProduct(product: IProducts) {
         const productsService = new ProductsService();
-        const response = await productsService.deleteProducts(product);
+        const response = await productsService.deleteProduct(product);
 
         if (product.GroupId) {
             const productsGroupsService = new ProductsGroupsService(this.user);
-            await productsGroupsService.deleteProductsGroups({ Id: product.GroupId });
+            await productsGroupsService.deleteProductGroup({ Id: product.GroupId });
         };
 
         return response;

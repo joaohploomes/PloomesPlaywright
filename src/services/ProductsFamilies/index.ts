@@ -27,21 +27,21 @@ class ProductsFamiliesService {
         return json.value;
     };
 
-    async createProductsFamilies(ProductsFamilies: IProductsFamilies): Promise<IProductsFamilies> {
+    async createProductFamily(ProductsFamilies: IProductsFamilies): Promise<IProductsFamilies> {
         const context = await this.auth.createContext();
         const response = await context.post(`${this.endpoint}`, {data: ProductsFamilies});
         const json = await response.json();
         return json.value[0];
     };
 
-    async updateProductsFamilies(ProductsFamilies: IProductsFamilies, data: Partial<IProductsFamilies>) {
+    async updateProductFamily(ProductsFamilies: IProductsFamilies, data: Partial<IProductsFamilies>) {
         const context = await this.auth.createContext();
         const response = await context.patch(`${this.endpoint}(${ProductsFamilies.Id})`, {data: data});
         const json = await response.json();
         return json.value[0];
     };
 
-    async deleteProductsFamilies(ProductsFamilies: IProductsFamilies) {
+    async deleteProductFamily(ProductsFamilies: IProductsFamilies) {
         const context = await this.auth.createContext();
         const response = await context.delete(`${this.endpoint}(${ProductsFamilies.Id})`);
         return response;

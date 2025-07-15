@@ -22,22 +22,22 @@ class ProductsFamiliesController {
         return response;
     };
 
-    async createProductsFamilies(data: IProductsFamilies) {
+    async createProductFamily(data: IProductsFamilies) {
         const user = this?.user || undefined;
         const productsFamiliesService = new ProductsFamiliesService(user);
-        const response = await productsFamiliesService.createProductsFamilies(data);
+        const response = await productsFamiliesService.createProductFamily(data);
         return response;
     };
 
-    async updateProductsFamilies(productsFamily: IProductsFamilies, data: Partial<IProductsFamilies>) {
+    async updateProductFamily(productsFamily: IProductsFamilies, data: Partial<IProductsFamilies>) {
         const productsFamiliesService = new ProductsFamiliesService(this.user);
-        const response = await productsFamiliesService.updateProductsFamilies(productsFamily, data);
+        const response = await productsFamiliesService.updateProductFamily(productsFamily, data);
         return response;
     };
 
-    async deleteProductsFamilies(productsFamily: IProductsFamilies) {
+    async deleteProductFamily(productsFamily: IProductsFamilies) {
         const productsFamiliesService = new ProductsFamiliesService();
-        const response = await productsFamiliesService.deleteProductsFamilies(productsFamily);
+        const response = await productsFamiliesService.deleteProductFamily(productsFamily);
         return response;
     };
 };

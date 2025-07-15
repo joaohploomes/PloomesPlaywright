@@ -5,6 +5,8 @@ import { type IProductsGroups, ProductsGroupsSchema } from "./IProductsGroups";
 import { type IProducts, ProductsSchema } from "./IProducts";
 import { type IDocumentTemplates, DocumentTemplateSchema } from "./IDocumentTemplates";
 import { type IUsers, usersSchema } from "./IUsers";
+import { type ITeams, TeamsSchema } from "./ITeams";
+
 export {
     ContactSchema,
     DealSchema,
@@ -13,6 +15,7 @@ export {
     ProductsSchema,
     DocumentTemplateSchema,
     usersSchema,
+    TeamsSchema,
 };
 
 export type {
@@ -23,4 +26,5 @@ export type {
     IProducts,
     IDocumentTemplates,
     IUsers,
+    ITeams,
 };

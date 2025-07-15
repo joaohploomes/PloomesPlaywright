@@ -22,19 +22,19 @@ class UsersController {
         return response;
     };
 
-    async createUsers(data: IUsers) {
+    async createUser(data: IUsers) {
         const usersService = new UsersService(this.user);
         const response = await usersService.createUser(data);
         return response;
     };
 
-    async updateUsers(user: IUsers, data: Partial<IUsers>) {
+    async updateUser(user: IUsers, data: Partial<IUsers>) {
         const usersService = new UsersService(this.user);
         const response = await usersService.updateUser(user, data);
         return response;
     };
 
-    async suspendUsers(user: IUsers) {
+    async suspendUser(user: IUsers) {
         const usersService = new UsersService(this.user);
         const data = {
             Suspended: true,
