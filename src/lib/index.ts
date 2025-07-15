@@ -1,13 +1,7 @@
-import getJsonFile from "./getJsonFile";
-import updateJsonFile from "./updateJsonFile";
-import generateMultipleItens from "./generateMultipleItens";
 import deleteMultipleItens from "./deleteMultipleItens";
+import generateMultipleItens from "./generateMultipleItens";
+import getJsonFile from "./getJsonFile";
 import QueryOdata from "./odata";
+import updateJsonFile from "./updateJsonFile";
 
-export { 
-    updateJsonFile,
-    getJsonFile,
-    generateMultipleItens,
-    deleteMultipleItens,
-    QueryOdata
-};
+export { updateJsonFile, getJsonFile, generateMultipleItens, deleteMultipleItens, QueryOdata };

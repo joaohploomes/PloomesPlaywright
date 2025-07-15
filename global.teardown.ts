@@ -1,7 +1,5 @@
 import type { FullConfig } from "@playwright/test";
 
-async function GlobalTeardown(config: FullConfig){
-    console.log("End of the tests");
-}   
+async function GlobalTeardown(config: FullConfig) {}
 
 export default GlobalTeardown;

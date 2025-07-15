@@ -12,8 +12,5 @@
 			"@constants": ["./src/constants/index"]
 		}
 	},
-	"include": [
-  		"src/**/*",
-  		"extensions/**/*"
-	],
+	"include": ["src/**/*", "extensions/**/*"]
 }

@@ -20,5 +20,4 @@ test.describe("Create Contact", () => {
 
 		await contactController.deleteContact(contact);
 	});
-
 });

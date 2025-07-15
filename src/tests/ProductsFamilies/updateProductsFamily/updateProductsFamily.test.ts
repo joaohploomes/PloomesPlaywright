@@ -3,18 +3,18 @@ import { expect, test } from "@playwright/test";
 import generateMockedProductsFamilies from "../mockedDataProductsFamily/mockedDataProductsFamily";
 
 test.describe("Update Products Families", () => {
-    test("Update a Products Family Correctly", async () => {
-        const productsFamiliesController = new ProductsFamiliesController();
-        const data = generateMockedProductsFamilies();
-        const productFamily = await productsFamiliesController.createProductFamily(data);
+	test("Update a Products Family Correctly", async () => {
+		const productsFamiliesController = new ProductsFamiliesController();
+		const data = generateMockedProductsFamilies();
+		const productFamily = await productsFamiliesController.createProductFamily(data);
 
-        expect(productFamily.Id).toBeDefined();
+		expect(productFamily.Id).toBeDefined();
 
-        const updatedData = generateMockedProductsFamilies();
-        const updatedProductFamily = await productsFamiliesController.updateProductFamily(productFamily, updatedData);
+		const updatedData = generateMockedProductsFamilies();
+		const updatedProductFamily = await productsFamiliesController.updateProductFamily(productFamily, updatedData);
 
-        expect(updatedProductFamily.Name).toBe(updatedData.Name);
+		expect(updatedProductFamily.Name).toBe(updatedData.Name);
 
-        await productsFamiliesController.deleteProductFamily(updatedProductFamily);
-    });
+		await productsFamiliesController.deleteProductFamily(updatedProductFamily);
+	});
 });

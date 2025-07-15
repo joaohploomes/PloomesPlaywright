@@ -1,20 +1,20 @@
 import ProductsController from "@controllers/Products";
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import generateMockedProducts from "../mockedDataProduct/mockedDataProduct";
 
 test.describe("Update Products", () => {
-    test("Update a Product Correctly", async () => {
-        const productsController = new ProductsController();
-        const data = generateMockedProducts();
-        const product = await productsController.createProduct(data);
+	test("Update a Product Correctly", async () => {
+		const productsController = new ProductsController();
+		const data = generateMockedProducts();
+		const product = await productsController.createProduct(data);
 
-        expect(product.Id).toBeDefined();
+		expect(product.Id).toBeDefined();
 
-        const updatedData = generateMockedProducts();
-        const updatedProduct = await productsController.updateProduct(product, updatedData);
+		const updatedData = generateMockedProducts();
+		const updatedProduct = await productsController.updateProduct(product, updatedData);
 
-        expect(updatedProduct.Name).toBe(updatedData.Name);
+		expect(updatedProduct.Name).toBe(updatedData.Name);
 
-        await productsController.deleteProduct(updatedProduct);
-    });
+		await productsController.deleteProduct(updatedProduct);
+	});
 });

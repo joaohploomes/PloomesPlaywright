@@ -1,8 +1,8 @@
 import DealController from "@controllers/Deals";
+import { deleteMultipleItens, generateMultipleItens } from "@lib";
 import { expect, test } from "@playwright/test";
-import generateMockedDeal from "../mockedDataDeal/mockedDataDeal";
 import type { IDeal } from "@schemas";
-import { generateMultipleItens, deleteMultipleItens } from "@lib";
+import generateMockedDeal from "../mockedDataDeal/mockedDataDeal";
 
 // test.describe("Deal tests", () => {
 //     test("Create a Deal", async () => {
