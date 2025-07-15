@@ -10,9 +10,9 @@ class ProductsFamiliesController {
         this.user = user;
     }
 
-    async findAllProductsFamilies() {
+    async findAllProductsFamilies(top = 15) {
         const productsFamiliesService = new ProductsFamiliesService(this.user);
-        const response = await productsFamiliesService.findAllProductsFamilies();
+        const response = await productsFamiliesService.findAllProductsFamilies(top);
         return response;
     };
 

@@ -1,11 +1,11 @@
 import type { APIRequestContext } from "@playwright/test";
-import type { IDocumentTemplates } from "@schemas";
+import type { IUsers } from "@schemas";
 import Authentication from "../../auth/authentication";
 import type { IUser } from "@types";
 import { QueryOdata } from "@lib";
 
-class DocumentTemplatesService {
-    endpoint = "DocumentTemplates";
+class UsersService {
+    endpoint = "Users";
     request: APIRequestContext;
     auth = new Authentication();
 
@@ -13,47 +13,41 @@ class DocumentTemplatesService {
         if (user) {
             this.auth.updateUser(user);
         }
-    }
+    };
 
-    async findAllDocumentTemplates(top: number): Promise<IDocumentTemplates[]> {
+    async findAllUsers(top: number): Promise<IUsers[]> {
         const context = await this.auth.createContext();
         const odata = new QueryOdata({
             orderBy: { Id: "desc" },
-            top: top,
+            top,
         });
         const query = odata.toString();
         const response = await context.get(`${this.endpoint}?${query}`);
         const json = await response.json();
         return json.value;
-    }
+    };
 
-    async createDocumentTemplates(documentTemplate: IDocumentTemplates): Promise<IDocumentTemplates> {
+    async createUser(user: IUsers): Promise<IUsers> {
         const context = await this.auth.createContext();
-        const response = await context.post(`${this.endpoint}`, { data: documentTemplate });
+        const response = await context.post(`${this.endpoint}`, { data: user });
         const json = await response.json();
         return json.value[0];
-    }
+    };
 
-    async updateDocumentTemplates(documentTemplate: IDocumentTemplates, data: Partial<IDocumentTemplates>) {
+    async updateUser(user: IUsers, data: Partial<IUsers>) {
         const context = await this.auth.createContext();
-        const response = await context.patch(`${this.endpoint}(${documentTemplate.Id})`, { data });
+        const response = await context.patch(`${this.endpoint}(${user.Id})`, { data });
         const json = await response.json();
         return json.value[0];
-    }
+    };
 
-    async deleteDocumentTemplates(documentTemplate: IDocumentTemplates) {
-        const context = await this.auth.createContext();
-        const response = await context.delete(`${this.endpoint}(${documentTemplate.Id})`);
-        return response;
-    }
-
-    async findDocumentTemplatesById(Id: number): Promise<IDocumentTemplates[]> {
+    async findUserById(Id: number): Promise<IUsers[]> {
         const context = await this.auth.createContext();
         const query = `$filter=Id eq ${Id}`;
         const response = await context.get(`${this.endpoint}?${query}`);
         const json = await response.json();
         return json.value;
-    }
+    };
 };
 
-export default DocumentTemplatesService;
+export default UsersService;

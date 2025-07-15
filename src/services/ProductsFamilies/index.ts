@@ -15,10 +15,11 @@ class ProductsFamiliesService {
             }
         };
 
-    async findAllProductsFamilies(): Promise<IProductsFamilies[]> {
+    async findAllProductsFamilies(top: number): Promise<IProductsFamilies[]> {
         const context = await this.auth.createContext();
         const odata = new QueryOdata({
             orderBy: { Id : "desc" },
+            top: top,
         });
         const query = odata.toString();
         const response = await context.get(`${this.endpoint}?${query}`);

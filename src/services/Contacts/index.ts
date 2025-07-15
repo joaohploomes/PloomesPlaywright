@@ -15,10 +15,11 @@ class ContactService {
 		}
 	};
 
-	async findAllContacts(): Promise<IContact[]> {
+	async findAllContacts(top: number): Promise<IContact[]> {
 		const context = await this.auth.createContext();
 		const odata = new QueryOdata({
 			orderBy: { Id : "desc" },
+			top: top,
 		});
 		const query = odata.toString();
 		const response = await context.get(`${this.endpoint}?${query}`);

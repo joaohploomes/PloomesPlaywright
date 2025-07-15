@@ -4,7 +4,7 @@ import{ type IProductsFamilies, ProductsFamiliesSchema } from "./IProductsFamili
 import { type IProductsGroups, ProductsGroupsSchema } from "./IProductsGroups";
 import { type IProducts, ProductsSchema } from "./IProducts";
 import { type IDocumentTemplates, DocumentTemplateSchema } from "./IDocumentTemplates";
-
+import { type IUsers, usersSchema } from "./IUsers";
 export {
     ContactSchema,
     DealSchema,
@@ -12,6 +12,7 @@ export {
     ProductsGroupsSchema,
     ProductsSchema,
     DocumentTemplateSchema,
+    usersSchema,
 };
 
 export type {
@@ -21,4 +22,5 @@ export type {
     IProductsGroups,
     IProducts,
     IDocumentTemplates,
+    IUsers,
 };

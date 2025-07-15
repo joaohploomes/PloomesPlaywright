@@ -29,7 +29,7 @@ test.describe("Get Document Templates", () => {
 
         await deleteMultipleItens<IDocumentTemplates>(
             documentTemplatesController.deleteDocumentTemplates.bind(documentTemplatesController),
-            fetchedDocumentTemplates
+            documentTemplates
         );
     });
 });
