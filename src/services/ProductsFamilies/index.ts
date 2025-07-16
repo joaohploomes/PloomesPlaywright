@@ -1,59 +1,59 @@
+import { QueryOdata } from "@lib";
 import type { APIRequestContext } from "@playwright/test";
 import type { IProductsFamilies } from "@schemas";
-import Authentication from "../../auth/authentication";
 import type { IUser } from "@types";
-import { QueryOdata } from "@lib";
+import Authentication from "../../auth/authentication";
 
 class ProductsFamiliesService {
-    endpoint = "Products@Families";
+	endpoint = "Products@Families";
 	request: APIRequestContext;
 	auth = new Authentication();
 
-    constructor(user?: IUser){
-            if(user){
-                this.auth.updateUser(user);
-            }
-        };
+	constructor(user?: IUser) {
+		if (user) {
+			this.auth.updateUser(user);
+		}
+	}
 
-    async findAllProductsFamilies(top: number): Promise<IProductsFamilies[]> {
-        const context = await this.auth.createContext();
-        const odata = new QueryOdata({
-            orderBy: { Id : "desc" },
-            top: top,
-        });
-        const query = odata.toString();
-        const response = await context.get(`${this.endpoint}?${query}`);
-        const json = await response.json();
-        return json.value;
-    };
+	async findAllProductsFamilies(top: number): Promise<IProductsFamilies[]> {
+		const context = await this.auth.createContext();
+		const odata = new QueryOdata({
+			orderBy: { Id: "desc" },
+			top: top,
+		});
+		const query = odata.toString();
+		const response = await context.get(`${this.endpoint}?${query}`);
+		const json = await response.json();
+		return json.value;
+	}
 
-    async createProductsFamilies(ProductsFamilies: IProductsFamilies): Promise<IProductsFamilies> {
-        const context = await this.auth.createContext();
-        const response = await context.post(`${this.endpoint}`, {data: ProductsFamilies});
-        const json = await response.json();
-        return json.value[0];
-    };
+	async createProductFamily(ProductsFamilies: IProductsFamilies): Promise<IProductsFamilies> {
+		const context = await this.auth.createContext();
+		const response = await context.post(`${this.endpoint}`, { data: ProductsFamilies });
+		const json = await response.json();
+		return json.value[0];
+	}
 
-    async updateProductsFamilies(ProductsFamilies: IProductsFamilies, data: Partial<IProductsFamilies>) {
-        const context = await this.auth.createContext();
-        const response = await context.patch(`${this.endpoint}(${ProductsFamilies.Id})`, {data: data});
-        const json = await response.json();
-        return json.value[0];
-    };
+	async updateProductFamily(ProductsFamilies: IProductsFamilies, data: Partial<IProductsFamilies>) {
+		const context = await this.auth.createContext();
+		const response = await context.patch(`${this.endpoint}(${ProductsFamilies.Id})`, { data: data });
+		const json = await response.json();
+		return json.value[0];
+	}
 
-    async deleteProductsFamilies(ProductsFamilies: IProductsFamilies) {
-        const context = await this.auth.createContext();
-        const response = await context.delete(`${this.endpoint}(${ProductsFamilies.Id})`);
-        return response;
-    };
+	async deleteProductFamily(ProductsFamilies: IProductsFamilies) {
+		const context = await this.auth.createContext();
+		const response = await context.delete(`${this.endpoint}(${ProductsFamilies.Id})`);
+		return response;
+	}
 
-    async findProductsFamiliesById(Id: number): Promise<IProductsFamilies[]> {
-        const context = await this.auth.createContext();
-        const query = `$filter=Id eq ${Id}`;
-        const response = await context.get(`${this.endpoint}?${query}`);
-        const json = await response.json();
-        return json.value;
-    };
-};
+	async findProductsFamiliesById(Id: number): Promise<IProductsFamilies[]> {
+		const context = await this.auth.createContext();
+		const query = `$filter=Id eq ${Id}`;
+		const response = await context.get(`${this.endpoint}?${query}`);
+		const json = await response.json();
+		return json.value;
+	}
+}
 
 export default ProductsFamiliesService;

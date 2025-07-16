@@ -9,10 +9,6 @@ const ContactSchema = z.object({
 
 type IContact = z.infer<typeof ContactSchema>;
 
-export {
-	ContactSchema
-};
+export { ContactSchema };
 
-export type {
-	IContact
-};
+export type { IContact };

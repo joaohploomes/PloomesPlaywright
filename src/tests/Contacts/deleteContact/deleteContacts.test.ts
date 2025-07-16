@@ -9,8 +9,8 @@ test.describe("Delete Contact", () => {
 		const contact = await contactController.createContact(data);
 		expect(contact.Id).toBeDefined();
 
-        await contactController.deleteContact(contact);
-        const deletedContact = await contactController.findContactById(contact.Id);
-        expect(deletedContact).toStrictEqual([]);
+		await contactController.deleteContact(contact);
+		const deletedContact = await contactController.findContactById(contact.Id);
+		expect(deletedContact).toStrictEqual([]);
 	});
 });

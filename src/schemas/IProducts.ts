@@ -1,19 +1,15 @@
-import z from "zod"
+import z from "zod";
 
 const ProductsSchema = z.object({
-    Id: z.number(),
-    GroupId: z.number(),
-    MeasurementUnit: z.string(),
-    Name: z.string(),
-    UnitPrice: z.number(),
+	Id: z.number(),
+	GroupId: z.number(),
+	MeasurementUnit: z.string(),
+	Name: z.string(),
+	UnitPrice: z.number(),
 });
 
 type IProducts = z.infer<typeof ProductsSchema>;
 
-export {
-    ProductsSchema
-};
+export { ProductsSchema };
 
-export type {
-    IProducts
-};
+export type { IProducts };
