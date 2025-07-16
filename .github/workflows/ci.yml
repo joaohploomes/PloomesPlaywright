@@ -20,9 +20,9 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Run tests
         env: 
           BASE_URL: 'https://api2-qa-backend2.ploomeswin.dev'
-        run: npm run test
+        run: pnpm run test
