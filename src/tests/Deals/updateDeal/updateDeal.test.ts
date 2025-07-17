@@ -1,21 +1,18 @@
-import DealController from "@controllers/Deals";
+import DealsController from "@controllers/Deals";
 import { expect, test } from "@playwright/test";
 import generateMockedDeal from "../mockedDataDeal/mockedDataDeal";
 
-// test.describe("Deal Tests", () => {
-//     test("Updates a Deal", async () => {
-//         const dealController = new DealController();
-//         const data = generateMockedDeal();
-//         const deal = await dealController.createDeal(data);
+test.describe("Update Deal", () => {
+	test("Update a Deal Correctly", async () => {
+		const dealsController = new DealsController();
+		const data = generateMockedDeal();
+		const deal = await dealsController.createDeal(data);
+		expect(deal.Id).toBeDefined();
 
-//         expect(deal).toBeDefined();
+		const updateData = generateMockedDeal();
+		const updatedDeal = await dealsController.updateDeal(deal, updateData);
+		expect(updatedDeal.Title).toBe(updateData.Title);
 
-//         const dataUpdate = generateMockedDeal();
-//         const updatedDeal = await dealController.updateDeal(deal, dataUpdate);
-
-//         expect(updatedDeal).toBeDefined();
-
-//         expect(updatedDeal.Title).toBe(dataUpdate.Title);
-//         await dealController.deleteDeal(updatedDeal);
-//     });
-// });
+		await dealsController.deleteDeal(updatedDeal);
+	});
+});

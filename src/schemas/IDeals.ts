@@ -8,7 +8,7 @@ const DealSchema = z.object({
 	OwnerId: z.number().optional(),
 	PipelineId: z.number(),
 	StageId: z.number(),
-	ContactId: z.number(),
+	ContactId: z.number().optional(),
 });
 
 type IDeal = z.infer<typeof DealSchema>;

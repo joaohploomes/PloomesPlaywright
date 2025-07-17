@@ -1,11 +1,11 @@
 import { QueryOdata } from "@lib";
 import type { APIRequestContext } from "@playwright/test";
-import type { IDeal } from "@schemas";
+import type { IDealsPipelines } from "@schemas";
 import type { IUser } from "@types";
 import Authentication from "../../auth/authentication";
 
-class DealService {
-	endpoint = "Deals";
+class DealsPipelinesService {
+	endpoint = "Deals@Pipelines";
 	request: APIRequestContext;
 	auth = new Authentication();
 
@@ -15,7 +15,7 @@ class DealService {
 		}
 	}
 
-	async findAllDeals(top: number): Promise<IDeal[]> {
+	async findAllPipelines(top: number): Promise<IDealsPipelines[]> {
 		const context = await this.auth.createContext();
 		const odata = new QueryOdata({
 			orderBy: { Id: "desc" },
@@ -27,27 +27,27 @@ class DealService {
 		return json.value;
 	}
 
-	async createDeal(deal: IDeal): Promise<IDeal> {
+	async createPipeline(pipeline: IDealsPipelines): Promise<IDealsPipelines> {
 		const context = await this.auth.createContext();
-		const response = await context.post(`${this.endpoint}`, { data: deal });
+		const response = await context.post(`${this.endpoint}`, { data: pipeline });
 		const json = await response.json();
 		return json.value[0];
 	}
 
-	async updateDeal(deal: IDeal, data: Partial<IDeal>) {
+	async updatePipeline(pipeline: IDealsPipelines, data: Partial<IDealsPipelines>) {
 		const context = await this.auth.createContext();
-		const response = await context.patch(`${this.endpoint}(${deal.Id})`, { data: data });
+		const response = await context.patch(`${this.endpoint}(${pipeline.Id})`, { data: data });
 		const json = await response.json();
 		return json.value[0];
 	}
 
-	async deleteDeal(deal: IDeal) {
+	async deletePipeline(pipeline: IDealsPipelines) {
 		const context = await this.auth.createContext();
-		const response = await context.delete(`${this.endpoint}(${deal.Id})`);
+		const response = await context.delete(`${this.endpoint}(${pipeline.Id})`);
 		return response;
 	}
 
-	async findDealById(Id: number): Promise<IDeal[]> {
+	async findPipelineById(Id: number): Promise<IDealsPipelines[]> {
 		const context = await this.auth.createContext();
 		const query = `$filter=Id eq ${Id}`;
 		const response = await context.get(`${this.endpoint}?${query}`);
@@ -56,4 +56,4 @@ class DealService {
 	}
 }
 
-export default DealService;
+export default DealsPipelinesService;
