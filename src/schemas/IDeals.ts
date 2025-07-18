@@ -11,8 +11,8 @@ const DealSchema = z.object({
 	ContactId: z.number().optional(),
 });
 
-type IDeal = z.infer<typeof DealSchema>;
+type IDeals = z.infer<typeof DealSchema>;
 
 export { DealSchema };
 
-export type { IDeal };
+export type { IDeals };

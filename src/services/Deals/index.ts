@@ -1,10 +1,10 @@
 import { QueryOdata } from "@lib";
 import type { APIRequestContext } from "@playwright/test";
-import type { IDeal } from "@schemas";
+import type { IDeals } from "@schemas";
 import type { IUser } from "@types";
 import Authentication from "../../auth/authentication";
 
-class DealService {
+class DealsService {
 	endpoint = "Deals";
 	request: APIRequestContext;
 	auth = new Authentication();
@@ -15,7 +15,7 @@ class DealService {
 		}
 	}
 
-	async findAllDeals(top: number): Promise<IDeal[]> {
+	async findAllDeals(top: number): Promise<IDeals[]> {
 		const context = await this.auth.createContext();
 		const odata = new QueryOdata({
 			orderBy: { Id: "desc" },
@@ -27,27 +27,27 @@ class DealService {
 		return json.value;
 	}
 
-	async createDeal(deal: IDeal): Promise<IDeal> {
+	async createDeal(deal: IDeals): Promise<IDeals> {
 		const context = await this.auth.createContext();
 		const response = await context.post(`${this.endpoint}`, { data: deal });
 		const json = await response.json();
 		return json.value[0];
 	}
 
-	async updateDeal(deal: IDeal, data: Partial<IDeal>) {
+	async updateDeal(deal: IDeals, data: Partial<IDeals>) {
 		const context = await this.auth.createContext();
 		const response = await context.patch(`${this.endpoint}(${deal.Id})`, { data: data });
 		const json = await response.json();
 		return json.value[0];
 	}
 
-	async deleteDeal(deal: IDeal) {
+	async deleteDeal(deal: IDeals) {
 		const context = await this.auth.createContext();
 		const response = await context.delete(`${this.endpoint}(${deal.Id})`);
 		return response;
 	}
 
-	async findDealById(Id: number): Promise<IDeal[]> {
+	async findDealById(Id: number): Promise<IDeals[]> {
 		const context = await this.auth.createContext();
 		const query = `$filter=Id eq ${Id}`;
 		const response = await context.get(`${this.endpoint}?${query}`);
@@ -56,4 +56,4 @@ class DealService {
 	}
 }
 
-export default DealService;
+export default DealsService;

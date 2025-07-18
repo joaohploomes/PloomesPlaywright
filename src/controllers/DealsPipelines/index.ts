@@ -1,4 +1,4 @@
-import type { IDealsPipelines } from "@schemas";
+import type { IDealssPipelines, IStage } from "@schemas";
 import DealsPipelinesService from "@services/DealsPipelines";
 import type { IUser } from "@types";
 
@@ -21,35 +21,41 @@ class DealsPipelinesController {
 		return response;
 	}
 
-	async createDealsPipeline(data: IDealsPipelines) {
+	async createDealsPipeline(data: IDealssPipelines) {
 		const dealsPipelinesService = new DealsPipelinesService(this.user);
 		const response = await dealsPipelinesService.createPipeline(data);
 		return response;
 	}
 
-	async updateDealsPipeline(pipeline: IDealsPipelines, data: Partial<IDealsPipelines>) {
+	async updateDealsPipeline(pipeline: IDealssPipelines, data: Partial<IDealssPipelines>) {
 		const dealsPipelinesService = new DealsPipelinesService(this.user);
 		const response = await dealsPipelinesService.updatePipeline(pipeline, data);
 		return response;
 	}
 
-	async deleteDealsPipeline(pipeline: IDealsPipelines) {
+	async deleteDealsPipeline(pipeline: IDealssPipelines) {
 		const dealsPipelinesService = new DealsPipelinesService(this.user);
 		const response = await dealsPipelinesService.deletePipeline(pipeline);
 		return response;
 	}
 
-	async archiveDealsPipeline(pipeline: IDealsPipelines) {
+	async archiveDealsPipeline(pipeline: IDealssPipelines) {
 		const dealsPipelinesService = new DealsPipelinesService(this.user);
 		const data = { Archived: true };
 		const response = await dealsPipelinesService.updatePipeline(pipeline, data);
 		return response;
 	}
 
-	async unarchiveDealsPipeline(pipeline: IDealsPipelines) {
+	async unarchiveDealsPipeline(pipeline: IDealssPipelines) {
 		const dealsPipelinesService = new DealsPipelinesService(this.user);
 		const data = { Archived: false };
 		const response = await dealsPipelinesService.updatePipeline(pipeline, data);
+		return response;
+	}
+
+	async findStagesFromPipeline(pipelineId: number): Promise<IStage[]> {
+		const dealsPipelinesService = new DealsPipelinesService(this.user);
+		const response = await dealsPipelinesService.findStagesByPipelineId(pipelineId);
 		return response;
 	}
 }

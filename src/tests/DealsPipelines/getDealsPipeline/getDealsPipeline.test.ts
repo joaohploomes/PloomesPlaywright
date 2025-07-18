@@ -1,7 +1,7 @@
 import DealsPipelinesController from "@controllers/DealsPipelines";
 import { deleteMultipleItens, generateMultipleItens } from "@lib";
 import { expect, test } from "@playwright/test";
-import type { IDealsPipelines } from "@schemas";
+import type { IDealssPipelines } from "@schemas";
 import generateMockedDealsPipeline from "../mockedDataDealsPipeline/mockedDataDealsPipeline";
 
 test.describe("Get Deals Pipelines", () => {
@@ -19,7 +19,7 @@ test.describe("Get Deals Pipelines", () => {
 
 	test("Get all Deals Pipelines", async () => {
 		const dealsPipelinesController = new DealsPipelinesController();
-		const dealsPipelines = await generateMultipleItens<IDealsPipelines>(
+		const dealsPipelines = await generateMultipleItens<IDealssPipelines>(
 			dealsPipelinesController.createDealsPipeline.bind(dealsPipelinesController),
 			generateMockedDealsPipeline,
 			3,
@@ -28,9 +28,9 @@ test.describe("Get Deals Pipelines", () => {
 
 		const fetchedDealsPipelines = await dealsPipelinesController.findAllDealsPipelines();
 		expect(fetchedDealsPipelines).toBeDefined();
-		expect(fetchedDealsPipelines).toMatchArrayId<IDealsPipelines>(dealsPipelines);
+		expect(fetchedDealsPipelines).toMatchArrayId<IDealssPipelines>(dealsPipelines);
 
-		await deleteMultipleItens<IDealsPipelines>(
+		await deleteMultipleItens<IDealssPipelines>(
 			dealsPipelinesController.deleteDealsPipeline.bind(dealsPipelinesController),
 			dealsPipelines,
 		);

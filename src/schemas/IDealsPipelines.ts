@@ -1,4 +1,5 @@
 import z from "zod";
+import { StageSchema } from "./IStage";
 
 const DealsPipelinesSchema = z.object({
 	Id: z.number(),
@@ -19,13 +20,15 @@ const DealsPipelinesSchema = z.object({
 	WinButtonId: z.number(),
 	WinDealOnLastStage: z.boolean(),
 	WinVerbId: z.number(),
-	Stages: z.array(z.object({})),
+	Stages: z.array(StageSchema).optional(),
 	SingularUnitName: z.string().optional(),
 	PluralUnitName: z.string().optional(),
+	EnableFunnelViewMode: z.boolean().optional(),
+	EnableTableViewMode: z.boolean().optional(),
 });
 
-type IDealsPipelines = z.infer<typeof DealsPipelinesSchema>;
+type IDealssPipelines = z.infer<typeof DealsPipelinesSchema>;
 
 export { DealsPipelinesSchema };
 
-export type { IDealsPipelines };
+export type { IDealssPipelines };

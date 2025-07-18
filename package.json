@@ -6,7 +6,8 @@
 	"scripts": {
 		"test": "playwright test",
 		"lint:check": "biome check .",
-		"lint:format": "biome format --write ."
+		"lint:format": "biome format --write .",
+		"lint:fix": "biome check . --fix"
 	},
 	"keywords": [],
 	"author": "",

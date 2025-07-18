@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
-import type { IDealsPipelines } from "@schemas";
+import type { IDealssPipelines } from "@schemas";
 
-function generateMockedDealsPipeline(nStages = 3): IDealsPipelines {
+function generateMockedDealsPipeline(nStages = 3): IDealssPipelines {
 	const stages = [];
 	for (let i = 0; i < nStages; i++) {
 		stages.push({
@@ -18,6 +18,8 @@ function generateMockedDealsPipeline(nStages = 3): IDealsPipelines {
 		PluralUnitName: faker.lorem.word(),
 		GenderId: faker.number.int({ min: 1, max: 2 }),
 		IconId: faker.number.int({ min: 1, max: 201 }),
+		EnableFunnelViewMode: true,
+		EnableTableViewMode: true,
 	};
 }
 
