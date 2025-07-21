@@ -1,10 +1,10 @@
-import { Faker, faker } from "@faker-js/faker";
-import type { IDeal } from "@schemas";
+import { faker } from "@faker-js/faker";
+import type { IDeals } from "@schemas";
 
-function generateMockedDeal(): IDeal {
+function generateMockedDeal(): IDeals {
 	return {
 		Title: faker.lorem.sentence(),
-		Amount: faker.number.int(),
+		Amount: faker.number.float({ fractionDigits: 2, min: 100, max: 100000 }),
 	};
 }
 
