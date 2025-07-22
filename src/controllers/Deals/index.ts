@@ -1,8 +1,12 @@
+import ContactController from "@controllers/Contacts";
 import DealsPipelinesController from "@controllers/DealsPipelines";
 import type { IDeals } from "@schemas";
 import DealsService from "@services/Deals";
 import type { IUser } from "@types";
+import generateMockedContact from "../../tests/Contacts/mockedDataContact/mockedDataContact";
 import generateMockedDealsPipeline from "../../tests/DealsPipelines/mockedDataDealsPipeline/mockedDataDealsPipeline";
+
+const dealMetadataMap = new Map<number, { PipelineId: number; ContactId: number }>();
 
 class DealsController {
 	private user?: IUser;
@@ -26,6 +30,11 @@ class DealsController {
 	async createDealWithPipeline(data: IDeals) {
 		const dealsService = new DealsService(this.user);
 		const dealsPipelinesController = new DealsPipelinesController(this.user);
+		const contactController = new ContactController(this.user);
+
+		const contactData = generateMockedContact("company");
+		const contact = await contactController.createContact(contactData);
+		const contactId = contact.Id;
 
 		const pipelineData = generateMockedDealsPipeline();
 		const pipeline = await dealsPipelinesController.createDealsPipeline(pipelineData);
@@ -36,18 +45,31 @@ class DealsController {
 		const dataWithStage = {
 			...data,
 			StageId: stageId,
+			ContactId: contactId,
 		};
 
 		const response = await dealsService.createDeal(dataWithStage);
+
+		dealMetadataMap.set(response.Id, {
+			PipelineId: pipeline.Id,
+			ContactId: contactId,
+		});
+
 		return response;
 	}
 
 	async createDealAtStage(stageId: number, data: IDeals) {
 		const dealsService = new DealsService(this.user);
+		const contactsController = new ContactController(this.user);
+
+		const contactData = generateMockedContact("company");
+		const contact = await contactsController.createContact(contactData);
+		const contactId = contact.Id;
 
 		const dataWithStage = {
 			...data,
 			StageId: stageId,
+			ContactId: contactId,
 		};
 
 		const response = await dealsService.createDeal(dataWithStage);
@@ -57,6 +79,11 @@ class DealsController {
 	async createDealAtPipeline(pipelineId: number, data: IDeals) {
 		const dealsService = new DealsService(this.user);
 		const dealsPipelinesController = new DealsPipelinesController(this.user);
+		const contactsController = new ContactController(this.user);
+
+		const contactData = generateMockedContact("company");
+		const contact = await contactsController.createContact(contactData);
+		const contactId = contact.Id;
 
 		const stages = await dealsPipelinesController.findStagesFromPipeline(pipelineId);
 
@@ -69,9 +96,11 @@ class DealsController {
 		const dataWithStage = {
 			...data,
 			StageId: randomStageId,
+			ContactId: contactId,
 		};
 
-		return await dealsService.createDeal(dataWithStage);
+		const response = await dealsService.createDeal(dataWithStage);
+		return response;
 	}
 
 	async updateDeal(deal: IDeals, data: Partial<IDeals>) {
@@ -82,19 +111,39 @@ class DealsController {
 
 	async deleteDealAndPipeline(deal: IDeals) {
 		const dealsService = new DealsService(this.user);
+		const metadata = dealMetadataMap.get(deal.Id);
+
 		const response = await dealsService.deleteDeal(deal);
 
-		if (deal.PipelineId) {
+		if (metadata?.PipelineId) {
 			const dealsPipelinesController = new DealsPipelinesController(this.user);
-			await dealsPipelinesController.deleteDealsPipeline({ Id: deal.PipelineId });
+			await dealsPipelinesController.deleteDealsPipeline({ Id: metadata.PipelineId });
 		}
+
+		if (metadata?.ContactId) {
+			const contactController = new ContactController(this.user);
+			await contactController.deleteContact({ Id: metadata.ContactId });
+		}
+
+		dealMetadataMap.delete(deal.Id);
 
 		return response;
 	}
 
 	async deleteDeal(deal: IDeals) {
 		const dealsService = new DealsService(this.user);
+
+		const getDeal = await dealsService.findDealById(deal.Id);
+		const fetchedDeal = getDeal[0];
+		const { ContactId } = fetchedDeal;
+
 		const response = await dealsService.deleteDeal(deal);
+
+		if (ContactId) {
+			const contactController = new ContactController(this.user);
+			await contactController.deleteContact({ Id: deal.ContactId });
+		}
+
 		return response;
 	}
 }
